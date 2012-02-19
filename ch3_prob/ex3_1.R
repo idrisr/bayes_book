@@ -1,4 +1,4 @@
-setwd('/home/id/code/bayes_book/ch3_prob')
+setwd('/home/id/learning/bayes_book/ch3_prob')
 
 # Goal: Toss a coin N times and compute the running proportion of heads.
 N = 500	# Specify the total number of flips, denoted N.
@@ -7,6 +7,14 @@ N = 500	# Specify the total number of flips, denoted N.
 # the function "sample" is part of R:
 #set.seed(47405) # Uncomment to set the "seed" for the random number generator.
 flipsequence = sample( x=c(0,1) , prob=c(.2,.8) , size=N , replace=TRUE )
+
+# Just for fun plotting the normal curve 'by hand'
+mu <- 0.8
+var <- 0.2 * (0 - 0.8)^2 + 0.8 * (1 - 0.8)^2
+sd <- sqrt(var)
+x <- seq(-3*sd + mu, 3*sd + mu , by = sd/100)
+px <- 1/sqrt((var*2*pi)) * exp(-((x-mu)/var)^2 / 2)
+plot(x, px)
 
 # Compute the running proportion of heads:
 r = cumsum( flipsequence ) # The function "cumsum" is built in to R.
