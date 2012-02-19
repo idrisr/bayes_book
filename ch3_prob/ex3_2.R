@@ -1,4 +1,4 @@
-# Consider a spinner with a [0,1] scale on its circumfrence. Suppoer that the
+# Consider a spinner with a [0,1] scale on its circumfrence. Suppose that the
 # spinner is biased, such that its prob density function is p(x) = 6x(1-x) over
 # the interval [0,1]
 
@@ -25,6 +25,9 @@ lines( x , y )
 # Exact integral of 6x(1-x) = 6(x - x^2)-> integral= 6(x^2/2 -x^3/3), from 1 to 0
 # = 6[(1/2 - 1/3) - (0)] = 6(1/6)=1
 area = sum( dx * y )
+
+# Display info in graph
+
 
 # Save the plot to an EPS file.
 # dev.copy2eps( file = "IntegralOfDensity.eps" )
