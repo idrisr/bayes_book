@@ -1,20 +1,25 @@
 # Theta is the vector of candidate values for the parameter theta.
 # nThetaVals is the number of candidate theta values.
 # To produce the examples in the book, set nThetaVals to either 3 or 63.
-nThetaVals <- 63
+nThetaVals <- 10  #times we're going to flip the coin
 # Now make the vector of theta values:
-Theta <- seq( from = 1/(nThetaVals+1) , to = nThetaVals/(nThetaVals+1) ,
-             by = 1/(nThetaVals+1) )
+# 99 unfair lufte-coins, one fair coin
+# Lets make leftward skewed pmf
+Theta <- seq(.01, .99, by=0.01)
 
 # pTheta is the vector of prior probabilities on the theta values.
-pTheta <- pmin( Theta , 1-Theta ) # Makes a triangular belief distribution.
+# this is your prior belief. We assign a distribution to our belief of the
+# likelihood of different kinds of coins - about how fair or unfair they are
+# Lets change this.
+# 99 unfair ones that give Heads 90% of time, 1 fair one
+pTheta <- dnorm(Theta, mean=0.7, sd=0.1)
+
 pTheta <- pTheta / sum( pTheta )  # Makes sure that beliefs sum to 1.
 
 # Specify the data. To produce the examples in the book, use either
-# Data <- c(1,1,1,0,0,0,0,0,0,0,0,0) or Data <- c(1,0,0,0,0,0,0,0,0,0,0,0).
-Data <- c(1,1,1,0,0,0,0,0,0,0,0,0)
-fairness <- 0.2
-Data <- runif(nThetaVals) > 0.2
+# Get 50 heads, and then 50 tails
+heads_flipped <- 9
+Data <- c(rep(1, heads_flipped), rep(0, nThetaVals - heads_flipped))
 nHeads <- sum( Data == 1 )
 nTails <- sum( Data == 0 )
 
@@ -76,3 +81,4 @@ filename = paste( "BayesUpdate_" ,modeltype ,"_" ,datatype ,".eps" ,sep="" )
 # The command dev.copy2eps, used below, doesn't work on all systems.
 # Try help("dev.copy2eps") for info about saving graphs in other file formats.
 dev.copy2eps( file=filename )
+#test comment
